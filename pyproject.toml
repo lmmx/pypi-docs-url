@@ -1,0 +1,23 @@
+[project]
+name = "pypi-docs-url"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Louis Maddox", email = "louismmx@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28.1",
+    "pyyaml>=6.0.2",
+]
+
+[project.scripts]
+pypi-docs-url = "pypi_docs_url:main"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
