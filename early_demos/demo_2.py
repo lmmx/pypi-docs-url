@@ -3,6 +3,7 @@
 import json
 import httpx
 
+
 def print_full_json(data: dict):
     """
     Pretty-print the entire JSON response for debugging.
@@ -10,6 +11,7 @@ def print_full_json(data: dict):
     print("\n----- Full PyPI JSON Response -----")
     print(json.dumps(data, indent=2))
     print("----- End of PyPI JSON Response -----\n")
+
 
 def get_pypi_docs_url(client: httpx.Client, package_name: str) -> str | None:
     """
@@ -35,6 +37,7 @@ def get_pypi_docs_url(client: httpx.Client, package_name: str) -> str | None:
             return link
 
     return None
+
 
 def guess_intersphinx_url(client: httpx.Client, docs_url: str) -> str | None:
     """
@@ -64,6 +67,7 @@ def guess_intersphinx_url(client: httpx.Client, docs_url: str) -> str | None:
 
     return None
 
+
 def main():
     package_name = "polars"
 
@@ -80,6 +84,7 @@ def main():
             print(f"\nSuccess! Found intersphinx inventory at: {inv_url}")
         else:
             print("\nNo luck guessing an intersphinx objects.inv URL.")
+
 
 if __name__ == "__main__":
     main()

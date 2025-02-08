@@ -13,12 +13,14 @@ End-to-end example:
 - Construct final objects.inv URL, do a HEAD check, and print the debug chain.
 """
 
+
 # 1) Basic PyPI fetch
 def get_pypi_json(client: httpx.Client, package_name: str) -> dict:
     url = f"https://pypi.org/pypi/{package_name}/json"
     resp = client.get(url)
     resp.raise_for_status()
     return resp.json()
+
 
 def parse_docs_url_from_pypi(data: dict) -> str | None:
     """Return a doc-related link from project_urls or None if not found."""
@@ -30,6 +32,7 @@ def parse_docs_url_from_pypi(data: dict) -> str | None:
             return link
     # Fallback: we might also check 'Documentation' specifically, or 'home_page'.
     return None
+
 
 def parse_github_repo_from_pypi(data: dict) -> tuple[str, str] | None:
     """Look in project_urls or home_page for a GitHub repo, return (org, repo) if found."""
@@ -51,8 +54,14 @@ def parse_github_repo_from_pypi(data: dict) -> tuple[str, str] | None:
                 return (org, repo)
     return None
 
+
 # 2) Fetch docs-python.yml
-def fetch_docs_python_workflow(client: httpx.Client, org: str, repo: str, branch="main") -> str | None:
+def fetch_docs_python_workflow(
+    client: httpx.Client,
+    org: str,
+    repo: str,
+    branch="main",
+) -> str | None:
     """
     Attempt to retrieve .github/workflows/docs-python.yml from e.g.
     https://raw.githubusercontent.com/org/repo/main/.github/workflows/docs-python.yml
@@ -63,6 +72,7 @@ def fetch_docs_python_workflow(client: httpx.Client, org: str, repo: str, branch
     if r.status_code == 200:
         return r.text
     return None
+
 
 def parse_stable_deployment_subfolder(yml_text: str) -> str | None:
     """
@@ -92,6 +102,7 @@ def parse_stable_deployment_subfolder(yml_text: str) -> str | None:
                 return tf  # e.g. "api/python/stable"
 
     return None
+
 
 # 3) Putting it all together in main
 def main():
@@ -130,7 +141,9 @@ def main():
         # E) Parse the stable subfolder, e.g. "api/python/stable"
         stable_subfolder = parse_stable_deployment_subfolder(workflow_text)
         if not stable_subfolder:
-            print("No stable subfolder found in the docs workflow steps. Possibly dev only.")
+            print(
+                "No stable subfolder found in the docs workflow steps. Possibly dev only.",
+            )
             return
 
         # F) Construct the final objects.inv path

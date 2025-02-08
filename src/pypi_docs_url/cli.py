@@ -1,6 +1,7 @@
 import click
 from .core import get_intersphinx_url
 
+
 @click.command()
 @click.argument("package_name")
 def main(package_name: str):

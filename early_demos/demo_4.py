@@ -22,10 +22,12 @@ Usage:
 If no package_name is given, defaults to "polars".
 """
 
+
 def print_header(title: str):
     print("\n" + "=" * 70)
     print(f"** {title}")
     print("=" * 70 + "\n")
+
 
 def fetch_pypi_json(client: httpx.Client, package: str) -> dict:
     url = f"https://pypi.org/pypi/{package}/json"
@@ -40,6 +42,7 @@ def fetch_pypi_json(client: httpx.Client, package: str) -> dict:
 
     return data
 
+
 def find_doc_link_in_project_urls(data: dict) -> str | None:
     """
     Look for a link containing "doc" in data["info"]["project_urls"].
@@ -52,6 +55,7 @@ def find_doc_link_in_project_urls(data: dict) -> str | None:
             return link
     # Optionally also check "Documentation" key or home_page, etc.
     return None
+
 
 def find_github_repo_in_project_urls(data: dict) -> str | None:
     """
@@ -70,6 +74,7 @@ def find_github_repo_in_project_urls(data: dict) -> str | None:
             return link
     return None
 
+
 def parse_github_repo_url(link: str) -> tuple[str, str] | None:
     """
     Given something like https://github.com/pola-rs/polars,
@@ -82,7 +87,13 @@ def parse_github_repo_url(link: str) -> tuple[str, str] | None:
     repo = m.group(2).removesuffix(".git")
     return (org, repo)
 
-def fetch_docs_python_yml(client: httpx.Client, org: str, repo: str, branch="main") -> str | None:
+
+def fetch_docs_python_yml(
+    client: httpx.Client,
+    org: str,
+    repo: str,
+    branch="main",
+) -> str | None:
     """
     Retrieve the docs-python.yml from:
       https://raw.githubusercontent.com/<org>/<repo>/<branch>/.github/workflows/docs-python.yml
@@ -99,6 +110,7 @@ def fetch_docs_python_yml(client: httpx.Client, org: str, repo: str, branch="mai
 
     print(f"Status {r.status_code}; no docs-python.yml at {url}.")
     return None
+
 
 def parse_stable_subfolder(yml_text: str) -> str | None:
     """
@@ -126,6 +138,7 @@ def parse_stable_subfolder(yml_text: str) -> str | None:
             if tf and "stable" in tf:
                 return tf
     return None
+
 
 def main():
     # If user passes a package name, use it; else default polars
@@ -177,7 +190,9 @@ def main():
         if stable_tf:
             print(f"Found stable subfolder => {stable_tf}")
         else:
-            print("No stable subfolder found. Possibly dev only, or a different naming.")
+            print(
+                "No stable subfolder found. Possibly dev only, or a different naming.",
+            )
             return
 
         # 6. Construct a guess for the domain + stable folder + objects.inv
@@ -211,6 +226,7 @@ def main():
                 print("Hmm, not 200. Possibly not found or we need a different path.")
         except httpx.HTTPError as exc:
             print(f"HEAD request failed: {exc}")
+
 
 if __name__ == "__main__":
     main()

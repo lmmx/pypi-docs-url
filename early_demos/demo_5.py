@@ -18,6 +18,7 @@ Usage:
 If no package_name is given, defaults to "polars".
 """
 
+
 def safe_print_dict(title: str, d: dict, keys: list[str]):
     """
     Nicely print only selected `keys` from dict `d` under a given title.
@@ -28,6 +29,7 @@ def safe_print_dict(title: str, d: dict, keys: list[str]):
         if k in d:
             print(f"{k}: {d[k]}")
 
+
 def fetch_pypi_json(client: httpx.Client, package: str) -> dict:
     """Fetch minimal PyPI JSON for the given package."""
     url = f"https://pypi.org/pypi/{package}/json"
@@ -35,6 +37,7 @@ def fetch_pypi_json(client: httpx.Client, package: str) -> dict:
     resp = client.get(url)
     resp.raise_for_status()
     return resp.json()
+
 
 def log_relevant_pypi_info(data: dict):
     """Print only the fields from PyPI JSON we rely on: project_urls, home_page."""
@@ -46,6 +49,7 @@ def log_relevant_pypi_info(data: dict):
     if homepage:
         print(f"  home_page: {homepage}")
 
+
 def find_doc_link_in_project_urls(data: dict) -> str | None:
     """Look for a link containing 'doc' in data["info"]["project_urls"]."""
     info = data.get("info", {})
@@ -54,6 +58,7 @@ def find_doc_link_in_project_urls(data: dict) -> str | None:
         if "doc" in label.lower():
             return link
     return None
+
 
 def find_github_repo_in_project_urls(data: dict) -> str | None:
     """
@@ -70,6 +75,7 @@ def find_github_repo_in_project_urls(data: dict) -> str | None:
             return c
     return None
 
+
 def parse_github_repo_url(link: str) -> tuple[str, str] | None:
     """
     Parse https://github.com/ORG/REPO => (ORG, REPO).
@@ -81,7 +87,13 @@ def parse_github_repo_url(link: str) -> tuple[str, str] | None:
     repo = m.group(2).removesuffix(".git")
     return (org, repo)
 
-def fetch_docs_python_yml(client: httpx.Client, org: str, repo: str, branch="main") -> str | None:
+
+def fetch_docs_python_yml(
+    client: httpx.Client,
+    org: str,
+    repo: str,
+    branch="main",
+) -> str | None:
     """
     Retrieve docs-python.yml from:
       https://raw.githubusercontent.com/<org>/<repo>/<branch>/.github/workflows/docs-python.yml
@@ -94,17 +106,21 @@ def fetch_docs_python_yml(client: httpx.Client, org: str, repo: str, branch="mai
         return r.text
     return None
 
+
 def log_selected_lines(workflow_text: str):
     """
     Print only lines containing 'deploy' or 'target-folder' to illustrate how docs are published
     without dumping everything.
     """
-    print("\n[2a] Key lines from docs-python.yml (containing 'deploy' or 'target-folder'):")
+    print(
+        "\n[2a] Key lines from docs-python.yml (containing 'deploy' or 'target-folder'):",
+    )
     lines = workflow_text.splitlines()
     for ln in lines:
         lower = ln.lower()
         if "deploy" in lower or "target-folder" in lower:
             print("  " + ln)
+
 
 def parse_stable_subfolder(yml_text: str) -> str | None:
     """
@@ -122,9 +138,12 @@ def parse_stable_subfolder(yml_text: str) -> str | None:
                 return tf
     return None
 
+
 def main():
     pkg = sys.argv[1] if len(sys.argv) > 1 else "polars"
-    print(f"** Attempting to discover {pkg}'s objects.inv via PyPI → GH workflow logic **")
+    print(
+        f"** Attempting to discover {pkg}'s objects.inv via PyPI → GH workflow logic **",
+    )
 
     with httpx.Client() as client:
         # [1] PyPI JSON
@@ -164,7 +183,9 @@ def main():
 
         stable_tf = parse_stable_subfolder(workflow_text)
         if not stable_tf:
-            print("\n[2c] No stable subfolder found in that workflow. Possibly dev only.")
+            print(
+                "\n[2c] No stable subfolder found in that workflow. Possibly dev only.",
+            )
             return
         print(f"\n[2c] Stable subfolder => {stable_tf}")
 

@@ -7,6 +7,7 @@ we assume it's the correct location.
 
 import httpx
 
+
 def get_pypi_docs_url(client: httpx.Client, package_name: str) -> str | None:
     """
     Query PyPI's JSON API for `package_name` to find a docs link in info.project_urls.
@@ -30,6 +31,7 @@ def get_pypi_docs_url(client: httpx.Client, package_name: str) -> str | None:
     # return project_urls.get("Documentation")
     return None
 
+
 def guess_intersphinx_url(client: httpx.Client, docs_url: str) -> str | None:
     """
     Heuristically guess the location of `objects.inv` for intersphinx.
@@ -49,6 +51,7 @@ def guess_intersphinx_url(client: httpx.Client, docs_url: str) -> str | None:
 
     return None
 
+
 def main():
     package_name = "polars"
 
@@ -66,6 +69,7 @@ def main():
             print(f"Guessed intersphinx inventory: {inv_url}")
         else:
             print("Could not guess an intersphinx objects.inv URL.")
+
 
 if __name__ == "__main__":
     main()

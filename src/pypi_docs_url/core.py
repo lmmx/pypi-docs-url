@@ -1,7 +1,7 @@
 import re
-import json
 import yaml
 import requests
+
 
 def get_intersphinx_url(package_name: str) -> str | None:
     """
@@ -73,6 +73,7 @@ def get_intersphinx_url(package_name: str) -> str | None:
             return guess
         return None
 
+
 def _fetch_pypi_json(session: requests.Session, pkg: str) -> dict | None:
     """Retrieve minimal PyPI JSON for `pkg`. Return dict or None."""
     url = f"https://pypi.org/pypi/{pkg}/json"
@@ -83,6 +84,7 @@ def _fetch_pypi_json(session: requests.Session, pkg: str) -> dict | None:
     except requests.RequestException:
         return None
 
+
 def _find_doc_link_in_project_urls(data: dict) -> str | None:
     """Look for a link containing 'doc' in data["info"]["project_urls"]."""
     info = data.get("info", {})
@@ -91,6 +93,7 @@ def _find_doc_link_in_project_urls(data: dict) -> str | None:
         if "doc" in label.lower():
             return link
     return None
+
 
 def _find_github_repo_in_project_urls(data: dict) -> str | None:
     """
@@ -109,6 +112,7 @@ def _find_github_repo_in_project_urls(data: dict) -> str | None:
             return link
     return None
 
+
 def _parse_github_repo_url(link: str) -> tuple[str, str] | None:
     """Parse https://github.com/ORG/REPO => (ORG, REPO)."""
     m = re.match(r"https://github\.com/([^/]+)/([^/]+)", link)
@@ -118,8 +122,12 @@ def _parse_github_repo_url(link: str) -> tuple[str, str] | None:
     repo = m.group(2).removesuffix(".git")
     return (org, repo)
 
+
 def _fetch_docs_python_yml(
-    session: requests.Session, org: str, repo: str, branch="main"
+    session: requests.Session,
+    org: str,
+    repo: str,
+    branch="main",
 ) -> str | None:
     """
     Retrieve .github/workflows/docs-python.yml from GitHub if it exists.
@@ -133,6 +141,7 @@ def _fetch_docs_python_yml(
         return None
     except requests.RequestException:
         return None
+
 
 def _parse_stable_subfolder(workflow_text: str) -> str | None:
     """
