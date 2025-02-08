@@ -29,3 +29,8 @@ dependencies = [
 
 [project.scripts]
 pypi-docs-url = "pypi_docs_url.cli:main"
+
+[tool.pytest.ini_options]
+markers = [
+  "online: Tests that require an internet connection"
+]
