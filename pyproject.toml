@@ -8,16 +8,25 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
-    "httpx>=0.28.1",
+    "click>=8.1.8",
     "pyyaml>=6.0.2",
+    "requests>=2.32.3",
 ]
 
 [project.scripts]
-pypi-docs-url = "pypi_docs_url:main"
+pypi-docs-url = "pypi_docs_url.cli:main"
 
 [build-system]
 requires = [
     "pdm-backend",
 ]
 build-backend = "pdm.backend"
+
+[dependency-groups]
+dev = [
+    "pdm>=2.22.3",
+    "pdm-bump>=0.9.10",
+    "pre-commit>=4.1.0",
+    "pytest>=8.3.4",
+]
 
