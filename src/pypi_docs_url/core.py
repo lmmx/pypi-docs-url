@@ -124,6 +124,7 @@ def _find_doc_url_candidate(data: dict, debug: bool) -> str | None:
       1) 'project_urls' containing 'doc' or 'Documentation'
       2) 'home_page' if it looks readthedocs or something doc-ish
       3) URLs containing 'stable' or 'latest'
+      4) Homepage as a fallback
     Return the best guess or None.
     """
     info = data.get("info", {})
@@ -157,6 +158,12 @@ def _find_doc_url_candidate(data: dict, debug: bool) -> str | None:
             if debug:
                 print(f"[DEBUG] Found URL containing 'stable' or 'latest' => {link}")
             return link
+
+    # e) Use homepage as a fallback
+    if homepage:
+        if debug:
+            print(f"[DEBUG] Using home_page as a fallback => {homepage}")
+        return homepage
 
     if debug:
         print("[DEBUG] No doc-like candidate found in project_urls or home_page.")
@@ -207,13 +214,15 @@ def _try_intersphinx_expansions(
     Attempt multiple expansions on `base_url`:
       - if ends with .html or .htm, remove it
       - ensure trailing slash
-      Then HEAD check:
+      Then HEAD check for each:
         objects.inv
         stable/objects.inv
         en/stable/objects.inv
         latest/objects.inv
         en/latest/objects.inv
-    Return first 200 success, or None.
+        doc/objects.inv
+        docs/objects.inv
+    Return the first 200 success, or None.
     """
     trimmed = base_url.strip()
     # remove trailing .html or .htm
@@ -229,8 +238,11 @@ def _try_intersphinx_expansions(
         "en/stable/objects.inv",
         "latest/objects.inv",
         "en/latest/objects.inv",
+        "doc/objects.inv",
+        "docs/objects.inv",
     ]
 
+    # We'll do HEAD requests in a loop
     for path in expansions:
         test_url = trimmed + "/" + path
         if debug:
