@@ -1,0 +1,78 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.11, pytest-8.3.4, pluggy-1.5.0
+rootdir: /home/louis/dev/pypi-docs-url
+configfile: pyproject.toml
+plugins: anyio-4.8.0
+collected 9 items
+
+tests/find_docs_test.py [DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/polars/json
+[DEBUG] Successfully fetched PyPI JSON for polars
+[DEBUG] Found doc-labeled link in project_urls => https://docs.pola.rs/api/python/stable/reference/index.html
+[DEBUG] Trying doc expansions => https://docs.pola.rs/api/python/stable/reference/index/objects.inv
+[DEBUG] Trying doc expansions => https://docs.pola.rs/api/python/stable/reference/index/stable/objects.inv
+[DEBUG] Trying doc expansions => https://docs.pola.rs/api/python/stable/reference/index/en/stable/objects.inv
+[DEBUG] Trying doc expansions => https://docs.pola.rs/api/python/stable/reference/index/latest/objects.inv
+[DEBUG] Trying doc expansions => https://docs.pola.rs/api/python/stable/reference/index/en/latest/objects.inv
+[DEBUG] Found GitHub link: https://github.com/pola-rs/polars/releases
+[DEBUG] Attempting fallback GH workflow approach with pola-rs/polars
+[DEBUG] Attempting to fetch workflow at: https://raw.githubusercontent.com/pola-rs/polars/main/.github/workflows/docs-python.yml
+[DEBUG] Successfully fetched docs-python.yml from https://raw.githubusercontent.com/pola-rs/polars/main/.github/workflows/docs-python.yml
+[DEBUG] Found stable target-folder => api/python/stable
+[DEBUG] Extracted domain => docs.pola.rs
+[DEBUG] Attempting HEAD request for fallback guess => https://docs.pola.rs/api/python/stable/objects.inv
+[DEBUG] Fallback GH approach found a valid objects.inv!
+
+.[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/pandas/json
+[DEBUG] Successfully fetched PyPI JSON for pandas
+[DEBUG] Found doc-labeled link in project_urls => https://pandas.pydata.org/docs/
+[DEBUG] Trying doc expansions => https://pandas.pydata.org/docs/objects.inv
+[DEBUG] Found a valid objects.inv => https://pandas.pydata.org/docs/objects.inv
+
+.[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/numpy/json
+[DEBUG] Successfully fetched PyPI JSON for numpy
+[DEBUG] Found doc-labeled link in project_urls => https://numpy.org/doc/
+[DEBUG] Trying doc expansions => https://numpy.org/doc/objects.inv
+[DEBUG] Trying doc expansions => https://numpy.org/doc/stable/objects.inv
+[DEBUG] Found a valid objects.inv => https://numpy.org/doc/stable/objects.inv
+
+.[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/matplotlib/json
+[DEBUG] Successfully fetched PyPI JSON for matplotlib
+[DEBUG] Found doc-labeled link in project_urls => https://matplotlib.org
+[DEBUG] Trying doc expansions => https://matplotlib.org/objects.inv
+[DEBUG] Found a valid objects.inv => https://matplotlib.org/objects.inv
+
+.[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/flask/json
+[DEBUG] Successfully fetched PyPI JSON for flask
+[DEBUG] Found doc-labeled link in project_urls => https://flask.palletsprojects.com/
+[DEBUG] Trying doc expansions => https://flask.palletsprojects.com/objects.inv
+[DEBUG] Found a valid objects.inv => https://flask.palletsprojects.com/objects.inv
+
+.[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/django/json
+[DEBUG] Successfully fetched PyPI JSON for django
+[DEBUG] Found doc-labeled link in project_urls => https://docs.djangoproject.com/
+[DEBUG] Trying doc expansions => https://docs.djangoproject.com/objects.inv
+[DEBUG] Found a valid objects.inv => https://docs.djangoproject.com/objects.inv
+
+.[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/requests/json
+[DEBUG] Successfully fetched PyPI JSON for requests
+[DEBUG] Found doc-labeled link in project_urls => https://requests.readthedocs.io
+[DEBUG] Trying doc expansions => https://requests.readthedocs.io/objects.inv
+[DEBUG] Trying doc expansions => https://requests.readthedocs.io/stable/objects.inv
+[DEBUG] Trying doc expansions => https://requests.readthedocs.io/en/stable/objects.inv
+[DEBUG] Found a valid objects.inv => https://requests.readthedocs.io/en/stable/objects.inv
+
+.[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/sqlalchemy/json
+[DEBUG] Successfully fetched PyPI JSON for sqlalchemy
+[DEBUG] Found doc-labeled link in project_urls => https://docs.sqlalchemy.org
+[DEBUG] Trying doc expansions => https://docs.sqlalchemy.org/objects.inv
+[DEBUG] Found a valid objects.inv => https://docs.sqlalchemy.org/objects.inv
+
+.[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/fastapi/json
+[DEBUG] Successfully fetched PyPI JSON for fastapi
+[DEBUG] Found doc-labeled link in project_urls => https://fastapi.tiangolo.com/
+[DEBUG] Trying doc expansions => https://fastapi.tiangolo.com/objects.inv
+[DEBUG] Found a valid objects.inv => https://fastapi.tiangolo.com/objects.inv
+
+.
+
+============================== 9 passed in 3.83s ===============================
