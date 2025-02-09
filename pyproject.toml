@@ -14,7 +14,7 @@ dev = [
 
 [project]
 name = "pypi-docs-url"
-version = "0.1.1"
+version = "0.1.2"
 description = "Add your description here"
 readme = "README.md"
 authors = [
