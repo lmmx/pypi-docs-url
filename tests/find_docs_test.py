@@ -13,6 +13,7 @@ from pypi_docs_url import get_intersphinx_url
         "polars",
         "pandas",
         "pytest",
+        "scikit-learn",
         "numpy",
         "matplotlib",
         "flask",

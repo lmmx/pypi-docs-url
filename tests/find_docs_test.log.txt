@@ -3,7 +3,7 @@ platform linux -- Python 3.11.11, pytest-8.3.4, pluggy-1.5.0
 rootdir: /home/louis/dev/pypi-docs-url
 configfile: pyproject.toml
 plugins: anyio-4.8.0
-collected 10 items
+collected 11 items
 
 tests/find_docs_test.py [DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/polars/json
 [DEBUG] Successfully fetched PyPI JSON for polars
@@ -36,6 +36,19 @@ tests/find_docs_test.py [DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/pol
 [DEBUG] Trimmed base => https://docs.pytest.org/en/stable
 [DEBUG] Trying doc expansions => https://docs.pytest.org/en/stable/objects.inv
 [DEBUG] Found a valid objects.inv => https://docs.pytest.org/en/stable/objects.inv
+
+.[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/scikit-learn/json
+[DEBUG] Successfully fetched PyPI JSON for scikit-learn
+[DEBUG] Found URL containing 'stable' or 'latest' => https://scikit-learn.org/stable/whats_new
+[DEBUG] Trying doc expansions => https://scikit-learn.org/stable/whats_new/objects.inv
+[DEBUG] Trying doc expansions => https://scikit-learn.org/stable/whats_new/stable/objects.inv
+[DEBUG] Trying doc expansions => https://scikit-learn.org/stable/whats_new/en/stable/objects.inv
+[DEBUG] Trying doc expansions => https://scikit-learn.org/stable/whats_new/latest/objects.inv
+[DEBUG] Trying doc expansions => https://scikit-learn.org/stable/whats_new/en/latest/objects.inv
+[DEBUG] Found stable/latest link => https://scikit-learn.org/stable/whats_new
+[DEBUG] Trimmed base => https://scikit-learn.org/stable
+[DEBUG] Trying doc expansions => https://scikit-learn.org/stable/objects.inv
+[DEBUG] Found a valid objects.inv => https://scikit-learn.org/stable/objects.inv
 
 .[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/numpy/json
 [DEBUG] Successfully fetched PyPI JSON for numpy
@@ -84,4 +97,4 @@ tests/find_docs_test.py [DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/pol
 
 .
 
-============================== 10 passed in 3.37s ==============================
+============================== 11 passed in 5.38s ==============================
