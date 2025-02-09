@@ -1,6 +1,8 @@
 import re
+
 import requests
 import yaml
+
 
 def get_intersphinx_url(package_name: str, debug: bool = False) -> str | None:
     """
@@ -43,7 +45,9 @@ def get_intersphinx_url(package_name: str, debug: bool = False) -> str | None:
         gh_repo_link = _find_github_repo_in_project_urls(data, debug)
         if not gh_repo_link:
             if debug:
-                print("[DEBUG] No GitHub link found; can't do fallback GH workflow logic.")
+                print(
+                    "[DEBUG] No GitHub link found; can't do fallback GH workflow logic."
+                )
             return None
 
         orgrepo = _parse_github_repo_url(gh_repo_link)
@@ -96,6 +100,7 @@ def get_intersphinx_url(package_name: str, debug: bool = False) -> str | None:
 
 ### Helper Functions ###
 
+
 def _fetch_pypi_json(session: requests.Session, pkg: str, debug: bool) -> dict | None:
     url = f"https://pypi.org/pypi/{pkg}/json"
     if debug:
@@ -114,13 +119,17 @@ def _fetch_pypi_json(session: requests.Session, pkg: str, debug: bool) -> dict |
 
 def _find_doc_url_candidate(data: dict, debug: bool) -> str | None:
     """
-    From PyPI metadata, attempt to find a doc-labeled link.
-    Return it if found, else None.
+    From PyPI metadata, attempt to find a doc-like link.
+    Priority:
+      1) 'project_urls' containing 'doc' or 'Documentation'
+      2) 'home_page' if it looks readthedocs or something doc-ish
+      3) URLs containing 'stable' or 'latest'
+    Return the best guess or None.
     """
     info = data.get("info", {})
     purls = info.get("project_urls", {})
 
-    # a) doc-labeled link or 'Documentation' key
+    # a) doc-labeled in project_urls
     for label, link in purls.items():
         lower_label = label.lower()
         if "doc" in lower_label or "documentation" in lower_label:
@@ -128,21 +137,29 @@ def _find_doc_url_candidate(data: dict, debug: bool) -> str | None:
                 print(f"[DEBUG] Found doc-labeled link in project_urls => {link}")
             return link
 
+    # b) If there's 'Documentation' key exactly
     if "Documentation" in purls:
         link = purls["Documentation"]
         if debug:
-            print(f"[DEBUG] Found 'Documentation' => {link}")
+            print(f"[DEBUG] Found 'Documentation' key => {link}")
         return link
 
-    # b) if home_page has readthedocs or docs
+    # c) if home_page has readthedocs or docs, we might treat it as doc link
     homepage = info.get("home_page")
     if homepage and any(hint in homepage.lower() for hint in ["readthedocs", "docs"]):
         if debug:
             print(f"[DEBUG] Using home_page as doc link => {homepage}")
         return homepage
 
+    # d) Check for URLs containing 'stable' or 'latest'
+    for link in purls.values():
+        if "stable" in link or "latest" in link:
+            if debug:
+                print(f"[DEBUG] Found URL containing 'stable' or 'latest' => {link}")
+            return link
+
     if debug:
-        print("[DEBUG] No doc-labeled link in project_urls or home_page.")
+        print("[DEBUG] No doc-like candidate found in project_urls or home_page.")
     return None
 
 
@@ -177,11 +194,15 @@ def _find_stable_latest_link(data: dict, debug: bool) -> str | None:
             return base
 
     if debug:
-        print("[DEBUG] No link containing 'stable' or 'latest' found in project_urls/home_page.")
+        print(
+            "[DEBUG] No link containing 'stable' or 'latest' found in project_urls/home_page."
+        )
     return None
 
 
-def _try_intersphinx_expansions(session: requests.Session, base_url: str, debug: bool) -> str | None:
+def _try_intersphinx_expansions(
+    session: requests.Session, base_url: str, debug: bool
+) -> str | None:
     """
     Attempt multiple expansions on `base_url`:
       - if ends with .html or .htm, remove it
@@ -244,6 +265,7 @@ def _find_github_repo_in_project_urls(data: dict, debug: bool) -> str | None:
         print("[DEBUG] No GitHub link found.")
     return None
 
+
 def _parse_github_repo_url(link: str) -> tuple[str, str] | None:
     m = re.match(r"https://github\.com/([^/]+)/([^/]+)", link)
     if not m:
@@ -251,6 +273,7 @@ def _parse_github_repo_url(link: str) -> tuple[str, str] | None:
     org = m.group(1)
     repo = m.group(2).removesuffix(".git")
     return (org, repo)
+
 
 def _fetch_docs_python_yml(
     session: requests.Session, org: str, repo: str, debug: bool
@@ -265,11 +288,14 @@ def _fetch_docs_python_yml(
                 print(f"[DEBUG] Successfully fetched docs-python.yml from {url}")
             return r.text
         if debug:
-            print(f"[DEBUG] Failed to fetch docs-python.yml from {url}: {r.status_code}")
+            print(
+                f"[DEBUG] Failed to fetch docs-python.yml from {url}: {r.status_code}"
+            )
     except requests.RequestException as exc:
         if debug:
             print(f"[DEBUG] Error fetching docs-python.yml => {exc}")
     return None
+
 
 def _parse_stable_subfolder(workflow_text: str, debug: bool) -> str | None:
     try:
@@ -293,6 +319,7 @@ def _parse_stable_subfolder(workflow_text: str, debug: bool) -> str | None:
     if debug:
         print("[DEBUG] No stable target-folder found in GH workflow.")
     return None
+
 
 def _parse_domain_from_url(url: str, debug: bool) -> str | None:
     """

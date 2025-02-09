@@ -151,6 +151,12 @@ Performing HEAD => status 200 => success!
 
 ---
 
+## Testing
+
+When running tests, and adding new packages, we run `pytest -s > tests/find_docs_test.log.txt` to
+save the 'trace' (from debugging) to give clues for LLMs, as well as general debugging and
+interpretation.
+
 ## Contributing
 
 Feel free to open issues/PRs:

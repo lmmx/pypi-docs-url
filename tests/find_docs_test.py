@@ -12,6 +12,7 @@ from pypi_docs_url import get_intersphinx_url
     [
         "polars",
         "pandas",
+        "pytest",
         "numpy",
         "matplotlib",
         "flask",

@@ -3,7 +3,7 @@ platform linux -- Python 3.11.11, pytest-8.3.4, pluggy-1.5.0
 rootdir: /home/louis/dev/pypi-docs-url
 configfile: pyproject.toml
 plugins: anyio-4.8.0
-collected 9 items
+collected 10 items
 
 tests/find_docs_test.py [DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/polars/json
 [DEBUG] Successfully fetched PyPI JSON for polars
@@ -13,20 +13,29 @@ tests/find_docs_test.py [DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/pol
 [DEBUG] Trying doc expansions => https://docs.pola.rs/api/python/stable/reference/index/en/stable/objects.inv
 [DEBUG] Trying doc expansions => https://docs.pola.rs/api/python/stable/reference/index/latest/objects.inv
 [DEBUG] Trying doc expansions => https://docs.pola.rs/api/python/stable/reference/index/en/latest/objects.inv
-[DEBUG] Found GitHub link: https://github.com/pola-rs/polars/releases
-[DEBUG] Attempting fallback GH workflow approach with pola-rs/polars
-[DEBUG] Attempting to fetch workflow at: https://raw.githubusercontent.com/pola-rs/polars/main/.github/workflows/docs-python.yml
-[DEBUG] Successfully fetched docs-python.yml from https://raw.githubusercontent.com/pola-rs/polars/main/.github/workflows/docs-python.yml
-[DEBUG] Found stable target-folder => api/python/stable
-[DEBUG] Extracted domain => docs.pola.rs
-[DEBUG] Attempting HEAD request for fallback guess => https://docs.pola.rs/api/python/stable/objects.inv
-[DEBUG] Fallback GH approach found a valid objects.inv!
+[DEBUG] Found stable/latest link => https://docs.pola.rs/api/python/stable/reference/index.html
+[DEBUG] Trimmed base => https://docs.pola.rs/api/python/stable
+[DEBUG] Trying doc expansions => https://docs.pola.rs/api/python/stable/objects.inv
+[DEBUG] Found a valid objects.inv => https://docs.pola.rs/api/python/stable/objects.inv
 
 .[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/pandas/json
 [DEBUG] Successfully fetched PyPI JSON for pandas
 [DEBUG] Found doc-labeled link in project_urls => https://pandas.pydata.org/docs/
 [DEBUG] Trying doc expansions => https://pandas.pydata.org/docs/objects.inv
 [DEBUG] Found a valid objects.inv => https://pandas.pydata.org/docs/objects.inv
+
+.[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/pytest/json
+[DEBUG] Successfully fetched PyPI JSON for pytest
+[DEBUG] Found URL containing 'stable' or 'latest' => https://docs.pytest.org/en/stable/changelog.html
+[DEBUG] Trying doc expansions => https://docs.pytest.org/en/stable/changelog/objects.inv
+[DEBUG] Trying doc expansions => https://docs.pytest.org/en/stable/changelog/stable/objects.inv
+[DEBUG] Trying doc expansions => https://docs.pytest.org/en/stable/changelog/en/stable/objects.inv
+[DEBUG] Trying doc expansions => https://docs.pytest.org/en/stable/changelog/latest/objects.inv
+[DEBUG] Trying doc expansions => https://docs.pytest.org/en/stable/changelog/en/latest/objects.inv
+[DEBUG] Found stable/latest link => https://docs.pytest.org/en/stable/changelog.html
+[DEBUG] Trimmed base => https://docs.pytest.org/en/stable
+[DEBUG] Trying doc expansions => https://docs.pytest.org/en/stable/objects.inv
+[DEBUG] Found a valid objects.inv => https://docs.pytest.org/en/stable/objects.inv
 
 .[DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/numpy/json
 [DEBUG] Successfully fetched PyPI JSON for numpy
@@ -75,4 +84,4 @@ tests/find_docs_test.py [DEBUG] Fetching PyPI JSON at: https://pypi.org/pypi/pol
 
 .
 
-============================== 9 passed in 3.83s ===============================
+============================== 10 passed in 3.37s ==============================
