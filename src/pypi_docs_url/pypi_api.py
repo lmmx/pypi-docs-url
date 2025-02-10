@@ -4,6 +4,7 @@ from __future__ import annotations
 import re
 import requests
 
+
 def fetch_pypi_json(session: requests.Session, pkg: str, debug: bool) -> dict | None:
     """Fetch JSON metadata for a package from PyPI."""
     url = f"https://pypi.org/pypi/{pkg}/json"
@@ -76,7 +77,7 @@ def find_doc_url_candidate(data: dict, debug: bool) -> str | None:
 def find_stable_latest_link(data: dict, debug: bool) -> str | None:
     """
     Scan project_urls + home_page for a link containing 'stable' or 'latest' in the path.
-    Return that trimmed base if found. 
+    Return that trimmed base if found.
     E.g. "https://scikit-learn.org/stable/whats_new" => "https://scikit-learn.org/stable"
     """
     info = data.get("info", {})
@@ -98,7 +99,9 @@ def find_stable_latest_link(data: dict, debug: bool) -> str | None:
             return base
 
     if debug:
-        print("[DEBUG] No link containing 'stable' or 'latest' found in project_urls/home_page.")
+        print(
+            "[DEBUG] No link containing 'stable' or 'latest' found in project_urls/home_page."
+        )
     return None
 
 

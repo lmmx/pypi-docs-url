@@ -31,9 +31,9 @@ def test_intersphinx_for_known_packages(package):
     """
     url = get_intersphinx_url(package, debug=True)
     assert url is not None, f"Expected to find objects.inv for {package}, got None"
-    assert (
-        "objects.inv" in url
-    ), f"For {package}, returned URL doesn't look like objects.inv: {url}"
+    assert "objects.inv" in url, (
+        f"For {package}, returned URL doesn't look like objects.inv: {url}"
+    )
 
     resp = requests.head(url, allow_redirects=True, timeout=10)
     resp.raise_for_status()  # ensures we got a 2xx

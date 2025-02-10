@@ -8,7 +8,7 @@ import yaml
 
 def parse_github_repo_url(link: str) -> tuple[str, str] | None:
     """
-    Extract (org, repo) from a GitHub URL, e.g.: 
+    Extract (org, repo) from a GitHub URL, e.g.:
     'https://github.com/org/repo' => ('org', 'repo')
     """
     m = re.match(r"https://github\.com/([^/]+)/([^/]+)", link)
@@ -20,7 +20,10 @@ def parse_github_repo_url(link: str) -> tuple[str, str] | None:
 
 
 def fetch_docs_python_yml(
-    session: requests.Session, org: str, repo: str, debug: bool
+    session: requests.Session,
+    org: str,
+    repo: str,
+    debug: bool,
 ) -> str | None:
     """
     Fetch the 'docs-python.yml' workflow file from GitHub if it exists.
@@ -35,7 +38,9 @@ def fetch_docs_python_yml(
                 print(f"[DEBUG] Successfully fetched docs-python.yml from {url}")
             return r.text
         if debug:
-            print(f"[DEBUG] Failed to fetch docs-python.yml from {url}: {r.status_code}")
+            print(
+                f"[DEBUG] Failed to fetch docs-python.yml from {url}: {r.status_code}"
+            )
     except requests.RequestException as exc:
         if debug:
             print(f"[DEBUG] Error fetching docs-python.yml => {exc}")

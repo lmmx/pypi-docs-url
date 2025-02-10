@@ -52,7 +52,9 @@ def get_intersphinx_url(package_name: str, debug: bool = False) -> str | None:
         gh_repo_link = find_github_repo_in_project_urls(data, debug)
         if not gh_repo_link:
             if debug:
-                print("[DEBUG] No GitHub link found; can't do fallback GH workflow logic.")
+                print(
+                    "[DEBUG] No GitHub link found; can't do fallback GH workflow logic."
+                )
             return None
 
         orgrepo = parse_github_repo_url(gh_repo_link)
