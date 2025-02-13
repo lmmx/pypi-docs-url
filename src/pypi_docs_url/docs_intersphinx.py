@@ -6,7 +6,9 @@ import requests
 
 
 def try_intersphinx_expansions(
-    session: requests.Session, base_url: str, debug: bool
+    session: requests.Session,
+    base_url: str,
+    debug: bool,
 ) -> str | None:
     """
     Attempt multiple expansions on `base_url` to find a valid `objects.inv`.
