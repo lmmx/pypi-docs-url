@@ -15,7 +15,7 @@ dev = [
 [project]
 name = "pypi-docs-url"
 version = "0.1.4"
-description = "Add your description here"
+description = "Locate a project’s Intersphinx inventory from PyPI metadata and GitHub Actions workflow YAML."
 readme = "README.md"
 authors = [
   {name = "Louis Maddox", email = "louismmx@gmail.com"}
