@@ -3,8 +3,9 @@
 import json
 import re
 import sys
-import yaml  # pip install pyyaml
+
 import httpx
+import yaml  # pip install pyyaml
 
 """
 Traces a causal chain from a package name on PyPI to a final guess

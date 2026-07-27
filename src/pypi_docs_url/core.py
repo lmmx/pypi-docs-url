@@ -3,21 +3,22 @@ from __future__ import annotations
 
 import requests
 
+from .docs_intersphinx import (
+    parse_domain_from_url,
+    try_intersphinx_expansions,
+)
+from .github_integration import (
+    fetch_docs_python_yml,
+    parse_github_repo_url,
+    parse_stable_subfolder,
+)
+
 # Import helpers from the other modules
 from .pypi_api import (
     fetch_pypi_json,
     find_doc_url_candidate,
-    find_stable_latest_link,
     find_github_repo_in_project_urls,
-)
-from .github_integration import (
-    parse_github_repo_url,
-    fetch_docs_python_yml,
-    parse_stable_subfolder,
-)
-from .docs_intersphinx import (
-    try_intersphinx_expansions,
-    parse_domain_from_url,
+    find_stable_latest_link,
 )
 
 

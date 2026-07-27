@@ -3,8 +3,9 @@
 import json
 import re
 import sys
-import yaml  # pip install pyyaml
+
 import httpx
+import yaml  # pip install pyyaml
 
 """
 Fully instrumented script to trace the entire logic from:
