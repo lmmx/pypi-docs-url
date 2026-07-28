@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 import re
-import yaml  # pip install pyyaml
+
 import httpx
+import yaml  # pip install pyyaml
 
 """
 End-to-end example:
