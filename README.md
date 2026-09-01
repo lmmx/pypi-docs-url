@@ -57,6 +57,7 @@ If you want to **reuse** the logic in your own code (not just the CLI), simply i
 ```python
 from pypi_docs_url import get_intersphinx_url
 
+
 def example():
     inv_url = get_intersphinx_url("polars")
     if inv_url:
@@ -87,6 +88,7 @@ import re
 import requests
 import yaml
 
+
 def main(package_name: str):
     # 1) PyPI JSON fetch
     # print(f"Fetching PyPI JSON at: https://pypi.org/pypi/{package_name}/json")
@@ -104,8 +106,10 @@ def main(package_name: str):
 
     pass
 
+
 if __name__ == "__main__":
     import sys
+
     pkg = sys.argv[1] if len(sys.argv) > 1 else "polars"
     main(pkg)
 ```
