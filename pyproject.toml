@@ -18,7 +18,7 @@ version = "0.1.5"
 description = "Locate a project’s Intersphinx inventory from PyPI metadata and GitHub Actions workflow YAML."
 readme = "README.md"
 authors = [
-  {name = "Louis Maddox", email = "louismmx@gmail.com"}
+  { name = "Louis Maddox", email = "louismmx@gmail.com" }
 ]
 requires-python = ">=3.9"
 dependencies = [
